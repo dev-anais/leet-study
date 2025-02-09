@@ -1,22 +1,22 @@
 function longestPalindrome(s: string): string {
-  let longestWords = '';
+  let maxString = '';
 
   for (let i = 0; i < s.length; i++) {
-    const oddLengthStr = expand(s, i, i);
-    const evenLengthStr = expand(s, i, i + 1);
-    const currentStr = oddLengthStr.length > evenLengthStr.length ? oddLengthStr : evenLengthStr;
-    longestWords = longestWords.length > currentStr.length ? longestWords : currentStr;
+    const evenString = expand(s, i, i + 1);
+    const oddString = expand(s, i, i);
+    const currentLongestWord = evenString.length > oddString.length ? evenString : oddString;
+    maxString = maxString.length > currentLongestWord.length ? maxString : currentLongestWord;
   }
 
-  return longestWords;
+  return maxString;
 }
 
-function expand(s: string, left: number, right: number) {
-  while (left >= 0 && right <= s.length && s[left] === s[right]) {
-    left--;
-    right++;
+const expand = (s: string, start: number, end: number) => {
+  while (start >= 0 && end < s.length && s[start] === s[end]) {
+    start--;
+    end++;
   }
-  return s.substring(left + 1, right);
-}
+  return s.substring(start + 1, end);
+};
 
 console.log(longestPalindrome('cbbd'));
